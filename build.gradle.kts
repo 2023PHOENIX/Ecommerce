@@ -1,0 +1,15 @@
+plugins {
+    id("org.springframework.boot") version "3.3.2" apply false
+    id("io.spring.dependency-management") version "1.1.5" apply false
+}
+
+subprojects {
+    apply(plugin = "java")
+
+    group = "com.ecommerce"
+    version = "1.0.0"
+
+    repositories {
+        mavenCentral()
+    }
+}

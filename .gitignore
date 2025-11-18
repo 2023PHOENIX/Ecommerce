@@ -1,0 +1,80 @@
+##############################
+# Java / JVM
+##############################
+*.class
+*.jar
+*.war
+*.ear
+*.jks
+*.iml
+hs_err_pid*
+replay_pid*
+
+##############################
+# Gradle
+##############################
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+gradle-app.setting
+**/build/
+**/bin/
+**/out/
+
+##############################
+# Spring Boot
+##############################
+logs/
+*.log
+*.log.*
+application-local.yml
+application-local.properties
+application-dev.yml
+application-dev.properties
+spring.log
+
+##############################
+# IntelliJ / IDEA
+##############################
+../.idea/
+*.iws
+*.ipr
+*.iml
+*.orig
+
+##############################
+# VS Code
+##############################
+.vscode/
+
+##############################
+# macOS files
+##############################
+.DS_Store
+.AppleDouble
+.LSOverride
+
+##############################
+# Cache / Temporary
+##############################
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.old
+
+##############################
+# Docker
+##############################
+*.tar
+*.env
+docker-compose.override.yml
+
+##############################
+# Logs / Reports
+##############################
+reports/
+test-result
