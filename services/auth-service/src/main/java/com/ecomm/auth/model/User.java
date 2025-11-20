@@ -2,14 +2,19 @@ package com.ecomm.auth.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Timestamp;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@RequiredArgsConstructor
 @Table(name = "users")
+@Data
+@NoArgsConstructor(force = true)
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -17,11 +22,18 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    private String userName;   // <-- ADD THIS FIELD
+    private final String userName;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private final String email;
 
     @Column(nullable = false)
-    private String password;   // <-- ensure this exists
+    private final String password;
+
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+    @UpdateTimestamp
+    private Timestamp updatedAt;
+
 }
