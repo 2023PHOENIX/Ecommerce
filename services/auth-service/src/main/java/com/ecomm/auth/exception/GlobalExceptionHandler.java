@@ -42,6 +42,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(generateErrorResponse(invalidPasswordException.getStatusCode(),invalidPasswordException.getMessage(),request.getDescription(false)), invalidPasswordException.getStatusCode());
     }
 
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleUserAlreadyExistException(AppException userAlreadyExistException,WebRequest request){
+        return new ResponseEntity<>(generateErrorResponse(userAlreadyExistException.getStatusCode(), userAlreadyExistException.getMessage(),request.getDescription(false)),userAlreadyExistException.getStatusCode());
+    }
+
     ApiResponseDTO<Object> generateErrorResponse(HttpStatus statusCode,String errorMessage,String path){
         return new ApiResponseDTO<Object>(LocalDateTime.now(), statusCode.value(),errorMessage,path,null);
     }

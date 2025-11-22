@@ -13,5 +13,5 @@ spring:
       ddl-auto: update
 security:
   jwt:
-    secret: phoenix
+    secret: aGdYV091T0pXWVRta21WcW9tM3JjY1VNVlRtaG52WXZ4ZzAwN0t4RTY=
     expiration: 3600000

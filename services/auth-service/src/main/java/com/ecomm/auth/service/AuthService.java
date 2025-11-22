@@ -1,8 +1,8 @@
 package com.ecomm.auth.service;
 
 import com.ecomm.auth.exception.AppException;
-import com.ecomm.auth.exception.DataAccessException;
 import com.ecomm.auth.exception.InvalidPasswordException;
+import com.ecomm.auth.exception.UserAlreadyExistException;
 import com.ecomm.auth.jwt.JwtService;
 import com.ecomm.auth.model.User;
 import com.ecomm.auth.repository.AuthRepository;
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,25 +23,26 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthService {
     @Value("${security.jwt.expiration}")
-    private String expirationTime;
+    private long expirationTime;
 
     private final AuthRepository authRepository;
+    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
 
-    public User registerUser(UserRegisterDTO userRegisterDTO) {
+    public Boolean registerUser(UserRegisterDTO userRegisterDTO) {
         if(!userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword())){
-            throw new AppException("password matching validation failed", HttpStatus.UNAUTHORIZED);
+            throw new AppException("password matching validation failed", HttpStatus.BAD_REQUEST);
         }
 
-        if(authRepository.findByEmail(userRegisterDTO.getEmail()).isPresent() || authRepository.findByUserName(userRegisterDTO.getUsername()).isPresent()){
-           throw new DataAccessException("Please provide unique email and username");
+        if(authRepository.findByUserNameOrEmail(userRegisterDTO.getUsername(), userRegisterDTO.getEmail()).isPresent()){
+           throw new UserAlreadyExistException("Please provide unique email and username");
         }
         // note: convert the password into hashed password.
-        String hashedPassword = BCrypt.hashpw(userRegisterDTO.getPassword(),BCrypt.gensalt());
-
+        String hashedPassword = passwordEncoder.encode(userRegisterDTO.getPassword());
         User user = new User(userRegisterDTO.getUsername(), userRegisterDTO.getEmail(), hashedPassword);
-        return authRepository.save(user);
+        authRepository.save(user);
+        return true;
     }
 
     public UserLoginResponse loginUser(UserLoginDTO userLoginDTO){
@@ -49,7 +50,7 @@ public class AuthService {
         Optional<User> userOptional =  authRepository.findByUserName(userLoginDTO.getUsername());
         User user = userOptional.orElseThrow(() -> new InvalidPasswordException("Invalid User"));
 
-        boolean passwordMatches = BCrypt.checkpw(userLoginDTO.getPassword(),user.getPassword());
+        boolean passwordMatches = passwordEncoder.matches(userLoginDTO.getPassword(),user.getPassword());
         if(!passwordMatches){
             throw new InvalidPasswordException("Invalid password");
         }
@@ -58,6 +59,10 @@ public class AuthService {
         return new UserLoginResponse(token,expirationTime);
     }
 
+    public Boolean validateJwt(String token){
+        log.atInfo().log("this is validation token:: {}",token);
+        return jwtService.isValidToken(token);
+    }
 
 
 }

@@ -1,10 +1,12 @@
 package com.ecomm.auth.jwt;
 
 import com.ecomm.auth.jwt.strategy.JwtStrategy;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class JwtService {
 
     private final JwtStrategy jwtStrategy;
@@ -23,6 +25,7 @@ public class JwtService {
     }
 
     public Boolean isValidToken(String token){
+
         return jwtStrategy.validateToken(token);
     }
 
