@@ -6,6 +6,7 @@ import com.ecomm.auth.service.AuthService;
 import com.ecomm.dto.exception.ApiResponseDTO;
 import com.ecomm.dto.request.UserLoginDTO;
 import com.ecomm.dto.request.UserRegisterDTO;
+import com.ecomm.dto.response.UserLoginResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +33,9 @@ public class AuthController {
         return ResponseEntity.accepted().body(responseDTO);
     }
     @PostMapping("/login")
-    public ResponseEntity<ApiResponseDTO<Object>> login(@RequestBody UserLoginDTO userLoginDTO){
-        Boolean userData = authService.loginUser(userLoginDTO);
-        ApiResponseDTO<Object> responseDTO = ApiResponseDTO.builder().status(HttpStatus.OK.value()).data(userData).build();
+    public ResponseEntity<ApiResponseDTO<Object>> login(@RequestBody @Valid UserLoginDTO userLoginDTO){
+        UserLoginResponse userLoginResponse = authService.loginUser(userLoginDTO);
+        ApiResponseDTO<Object> responseDTO = ApiResponseDTO.builder().status(HttpStatus.OK.value()).data(userLoginResponse).build();
         return ResponseEntity.ok().body(responseDTO);
     }
 //

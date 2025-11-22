@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-    private  JwtStrategy jwtStrategy;
+    private final JwtStrategy jwtStrategy;
 
 
     public JwtService(@Qualifier("HS256") JwtStrategy jwtStrategy) {
         this.jwtStrategy = jwtStrategy;
     }
 
-    public String generateJwtToken(String email){
-        return jwtStrategy.generateToken(email);
+    public String generateJwtToken(String subject){
+        return jwtStrategy.generateToken(subject);
     }
 
     public String extractEmail(String token){

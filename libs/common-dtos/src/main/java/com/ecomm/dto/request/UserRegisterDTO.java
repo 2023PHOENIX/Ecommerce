@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class UserRegisterDTO {
-
+    @NotBlank
     private String username;
 
     @NotBlank(message = "Password is required")

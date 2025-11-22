@@ -1,6 +1,7 @@
 package com.ecomm.auth.exception;
 
 import com.ecomm.dto.exception.ApiResponseDTO;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,8 +32,20 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(generateErrorResponse(ex.getStatusCode(),ex.getMessage(),request.getDescription(false)),ex.getStatusCode());
     }
 
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleDatabaseErrors(AppException dataAccessException,WebRequest request){
+        return new ResponseEntity<>(generateErrorResponse(dataAccessException.getStatusCode(),dataAccessException.getMessage(),request.getDescription(false)), dataAccessException.getStatusCode());
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleInvalidPasswordException(AppException invalidPasswordException,WebRequest request){
+        return new ResponseEntity<>(generateErrorResponse(invalidPasswordException.getStatusCode(),invalidPasswordException.getMessage(),request.getDescription(false)), invalidPasswordException.getStatusCode());
+    }
+
     ApiResponseDTO<Object> generateErrorResponse(HttpStatus statusCode,String errorMessage,String path){
         return new ApiResponseDTO<Object>(LocalDateTime.now(), statusCode.value(),errorMessage,path,null);
     }
+
+
 }
 
