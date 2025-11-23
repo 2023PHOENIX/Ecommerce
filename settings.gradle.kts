@@ -9,7 +9,7 @@ include("libs:common-exceptions")
 // Microservices
 include("services:auth-service")
 include("services:order-service")
-include("services:product-service")
+include("services:pct-service")
 include("services:payment-service")
 include("services:inventory-service")
 include("services:notification-service")
