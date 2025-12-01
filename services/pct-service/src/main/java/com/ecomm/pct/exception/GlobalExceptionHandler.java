@@ -15,4 +15,6 @@ public class GlobalExceptionHandler {
                 .badRequest()
                 .body(Map.of("error", ex.getMessage()));
     }
+
+
 }

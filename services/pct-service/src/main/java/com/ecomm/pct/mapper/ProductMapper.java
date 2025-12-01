@@ -1,5 +1,6 @@
 package com.ecomm.pct.mapper;
 
+import com.ecomm.events.ProducerCreateEvent;
 import com.ecomm.pct.dto.request.CreationProductRequest;
 import com.ecomm.pct.dto.response.ProductResponse;
 import com.ecomm.pct.entity.ProductEntity;
@@ -19,18 +20,19 @@ public class ProductMapper {
         ProductEntity productEntity = new ProductEntity();
         productEntity.setName(productRequest.getName());
         productEntity.setCategory(Category.valueOf(productRequest.getCategory().toUpperCase()));
-        productEntity.setDescription(productEntity.getDescription());
+        productEntity.setDescription(productRequest.getDescription());
         productEntity.setPrice(productRequest.getPrice());
         productEntity.setAttributes(productRequest.getAttributes());
         return productEntity;
     }
 
     /**
-     *  this will convert the product entity to response
+     * this will convert the product entity to response
+     *
      * @param productEntity
      * @return the product response entity
      */
-    public ProductResponse toResponse(ProductEntity productEntity){
+    public ProductResponse toResponse(ProductEntity productEntity) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setName(productEntity.getName());
         productResponse.setDescription(productEntity.getDescription());
@@ -39,6 +41,14 @@ public class ProductMapper {
         productResponse.setCategory(productEntity.getCategory().toString());
         productResponse.setAttributes(productEntity.getAttributes());
         return productResponse;
+    }
 
+    public ProducerCreateEvent toEvent(ProductEntity productEntity) {
+        ProducerCreateEvent producerCreateEvent = new ProducerCreateEvent();
+        producerCreateEvent.setProductId(productEntity.getId().toString());
+        producerCreateEvent.setName(productEntity.getName());
+        producerCreateEvent.setPrice(productEntity.getPrice());
+        producerCreateEvent.setCategory(productEntity.getCategory().toString());
+        return producerCreateEvent;
     }
 }

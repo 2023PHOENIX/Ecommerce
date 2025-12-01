@@ -3,6 +3,7 @@ package com.ecomm.pct.entity;
 
 import com.ecomm.pct.enums.Category;
 import com.ecomm.pct.util.JsonConverter;
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,6 +24,7 @@ public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false,unique = true)
     private String name;
     private String description;
     private BigDecimal price;

@@ -35,6 +35,7 @@ dependencies {
 
     // adding common libs
     implementation(project(":libs:common-dtos"))
+    implementation(project(":libs:common-utils"))
 
 }
 
