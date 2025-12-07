@@ -1,0 +1,18 @@
+server:
+  port: 9094
+
+spring:
+  application:
+    name: audit-service
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints: localhost:9200
+
+audit:
+  index:
+    name: product-audit-log
+  elasticsearch:
+    host: localhost
+    port: 9200

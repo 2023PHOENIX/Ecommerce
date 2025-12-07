@@ -13,26 +13,28 @@ plugins {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.postgresql:postgresql:42.7.7")
-
-
-
-
-//    developmentOnly("org.springframework.boot:spring-boot-devtools")
-
+    // For JWT generation later
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+//    "developmentOnly"("org.springframework.boot:spring-boot-devtools")
+
 // For test classes
     testCompileOnly("org.projectlombok:lombok")
     testAnnotationProcessor("org.projectlombok:lombok")
+
+// https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch
+
+    implementation ("org.springframework.kafka:spring-kafka")
+
+    implementation("co.elastic.clients:elasticsearch-java:8.13.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("org.elasticsearch.client:elasticsearch-rest-client:8.13.0")
+    implementation("org.apache.httpcomponents:httpclient:4.5.13")
+
 
     // adding common libs
     implementation(project(":libs:common-dtos"))
     implementation(project(":libs:common-utils"))
 
 }
-
 
