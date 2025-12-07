@@ -11,5 +11,6 @@ public class ProductResponse {
     private String description;
     private BigDecimal price;
     private String category;
+    private String skuCode;
     private Map<String,Object> attributes;
 }

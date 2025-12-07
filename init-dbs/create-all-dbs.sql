@@ -4,6 +4,7 @@
 -- Create the two new databases (Use this simple form if the script runs only once)
 CREATE DATABASE authdb;
 CREATE DATABASE pctdb;
+CREATE DATABASE inventorydb;
 
 -- Or use the conditional form if you run the container multiple times:
 -- SELECT 'CREATE DATABASE pctdb'

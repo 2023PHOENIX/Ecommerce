@@ -11,6 +11,9 @@ import java.util.Map;
 public class CreationProductRequest {
     @NotBlank
     private String name;
+
+    @NotBlank
+    private String skuCode;
     @NotBlank
     private String description;
     @NotNull

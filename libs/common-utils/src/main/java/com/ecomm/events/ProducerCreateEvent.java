@@ -12,6 +12,7 @@ import java.time.Instant;
 public class ProducerCreateEvent {
     private String productId;
     private String name;
+    private String skuCode;
     private BigDecimal price;
     private String category;
     private Instant instant = Instant.now();

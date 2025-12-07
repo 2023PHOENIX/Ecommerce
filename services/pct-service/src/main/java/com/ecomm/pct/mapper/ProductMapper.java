@@ -19,6 +19,7 @@ public class ProductMapper {
     public ProductEntity toEntity(CreationProductRequest productRequest) {
         ProductEntity productEntity = new ProductEntity();
         productEntity.setName(productRequest.getName());
+        productEntity.setSkuCode(productRequest.getSkuCode());
         productEntity.setCategory(Category.valueOf(productRequest.getCategory().toUpperCase()));
         productEntity.setDescription(productRequest.getDescription());
         productEntity.setPrice(productRequest.getPrice());
@@ -40,15 +41,22 @@ public class ProductMapper {
         productResponse.setPrice(productEntity.getPrice());
         productResponse.setCategory(productEntity.getCategory().toString());
         productResponse.setAttributes(productEntity.getAttributes());
+        productResponse.setSkuCode(productEntity.getSkuCode());
         return productResponse;
     }
 
+    /**
+     *
+     * @param productEntity
+     * @return it will return the kafka event which is going to be send to downstream system.
+     */
     public ProducerCreateEvent toEvent(ProductEntity productEntity) {
         ProducerCreateEvent producerCreateEvent = new ProducerCreateEvent();
         producerCreateEvent.setProductId(productEntity.getId().toString());
         producerCreateEvent.setName(productEntity.getName());
         producerCreateEvent.setPrice(productEntity.getPrice());
         producerCreateEvent.setCategory(productEntity.getCategory().toString());
+        producerCreateEvent.setSkuCode(productEntity.getSkuCode());
         return producerCreateEvent;
     }
 }
