@@ -1,9 +1,10 @@
 package com.ecomm.inventory.service.impl;
 
+import com.ecomm.inventory.dto.request.InventoryUpdateRequest;
 import com.ecomm.inventory.entity.Inventory;
 import com.ecomm.inventory.repository.InventoryRepository;
 import com.ecomm.inventory.service.InventoryService;
-import jakarta.transaction.Transactional;
+import com.ecomm.inventory.service.commands.InventoryUpdateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,9 @@ import org.springframework.stereotype.Service;
 public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository inventoryRepository;
+    private final InventoryUpdateService inventoryUpdateService;
 
     @Override
-    @Transactional
     public Inventory upsertInventory(String skuCode) {
         // fetch the sku code weather it is available or not right now ?
         // if it available then please update the existing object
@@ -29,4 +30,10 @@ public class InventoryServiceImpl implements InventoryService {
                     return inventoryRepository.save(inventory);
                 });
     }
+
+    public Inventory updateInventory(InventoryUpdateRequest inventoryUpdateRequest) {
+         return inventoryUpdateService.execute(inventoryUpdateRequest).get();
+    }
+
+
 }

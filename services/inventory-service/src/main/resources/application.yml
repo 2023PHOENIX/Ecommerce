@@ -4,6 +4,9 @@ server:
     context-path: /api
 
 spring:
+  threads:
+    virtual:
+      enabled: true
   datasource:
     url: jdbc:postgresql://localhost:5432/inventorydb
     username: postgres
