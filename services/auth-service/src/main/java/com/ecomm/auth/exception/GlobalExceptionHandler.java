@@ -2,6 +2,7 @@ package com.ecomm.auth.exception;
 
 import com.ecomm.dto.exception.ApiResponseDTO;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,7 +24,7 @@ public class GlobalExceptionHandler {
     ){
         String message = Objects.requireNonNull(ex.getFieldError()).getDefaultMessage();
 
-        return new ResponseEntity<>(generateErrorResponse(HttpStatus.BAD_REQUEST,message,request.getDescription(false)), null,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(generateErrorResponse(HttpStatus.BAD_REQUEST,message,request.getDescription(false)), (HttpHeaders) null,HttpStatus.BAD_REQUEST);
     }
 
 
