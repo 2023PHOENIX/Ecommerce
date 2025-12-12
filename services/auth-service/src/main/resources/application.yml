@@ -11,6 +11,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  threads:
+    virtual:
+      enabled: true
 security:
   jwt:
     secret: aGdYV091T0pXWVRta21WcW9tM3JjY1VNVlRtaG52WXZ4ZzAwN0t4RTY=

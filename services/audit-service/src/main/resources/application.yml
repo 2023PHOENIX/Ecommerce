@@ -9,6 +9,9 @@ spring:
       client:
         reactive:
           endpoints: localhost:9200
+  threads:
+    virtual:
+      enabled: true
 
 audit:
   index:

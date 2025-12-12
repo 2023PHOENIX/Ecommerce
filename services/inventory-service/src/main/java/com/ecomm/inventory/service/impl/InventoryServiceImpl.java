@@ -1,10 +1,13 @@
 package com.ecomm.inventory.service.impl;
 
 import com.ecomm.inventory.dto.request.InventoryUpdateRequest;
+import com.ecomm.inventory.dto.response.InventoryQueryResponse;
 import com.ecomm.inventory.entity.Inventory;
+import com.ecomm.inventory.mapper.InventoryMapper;
 import com.ecomm.inventory.repository.InventoryRepository;
 import com.ecomm.inventory.service.InventoryService;
 import com.ecomm.inventory.service.commands.InventoryUpdateService;
+import com.ecomm.inventory.service.query.InventoryQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,8 @@ public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository inventoryRepository;
     private final InventoryUpdateService inventoryUpdateService;
+    private final InventoryQueryService inventoryQueryService;
+    private final InventoryMapper inventoryMapper;
 
     @Override
     public Inventory upsertInventory(String skuCode) {
@@ -33,6 +38,12 @@ public class InventoryServiceImpl implements InventoryService {
 
     public Inventory updateInventory(InventoryUpdateRequest inventoryUpdateRequest) {
          return inventoryUpdateService.execute(inventoryUpdateRequest).get();
+    }
+
+    @Override
+    public InventoryQueryResponse getInventory(String skuCode) {
+        Inventory inventory = inventoryQueryService.getBySkuCode(skuCode);
+        return inventoryMapper.toResponse(inventory);
     }
 
 
