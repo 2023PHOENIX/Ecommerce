@@ -14,5 +14,6 @@ public class ProductEventPublisher {
 
     public void publishProductCreated(ProducerCreateEvent productCreatedEvent){
         producer.send(TOPIC,productCreatedEvent);
+
     }
 }

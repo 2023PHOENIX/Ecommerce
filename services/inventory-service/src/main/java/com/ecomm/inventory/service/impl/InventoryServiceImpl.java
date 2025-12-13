@@ -28,7 +28,7 @@ public class InventoryServiceImpl implements InventoryService {
                 .map(existingInventory -> {
                     int newQuantity = existingInventory.getQuantity() + 1;
                     existingInventory.setQuantity(newQuantity);
-                    return existingInventory;
+                    return inventoryRepository.save(existingInventory);
                 }).orElseGet(() -> {
                     Inventory inventory = new Inventory(skuCode);
                     inventory.setQuantity(1);

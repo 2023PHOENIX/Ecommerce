@@ -27,7 +27,7 @@ public class ProductCreationEventConsumer {
         log.atInfo().log("Received payload for product creation: {}", event);
         try {
             JsonNode node = objectMapper.readTree(event);
-            String skuCode = node.get("skuCode").asText();
+            String skuCode = node.get("skuCode").asString();
             log.atInfo().log("Processing SKU code: {}", skuCode);
             Inventory inventory = inventoryService.upsertInventory(skuCode);
             log.atInfo().log("Updated the inventory sku code {} with quantity: {}", inventory.getSkuCode(), inventory.getQuantity());

@@ -1,8 +1,10 @@
 server:
-  port: 9083
+  port: 9093
   servlet:
     context-path: /api
-
+grpc:
+  server:
+    port: 9095
 spring:
   threads:
     virtual:
@@ -11,6 +13,14 @@ spring:
     url: jdbc:postgresql://localhost:5432/inventorydb
     username: postgres
     password: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9092 # e.g., kafka:9092
+    consumer:
+      # CRITICAL: This overrides the default in common-util for this service
+      group-id: inventory-service-test-42 # Use a fresh ID to reset offset
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

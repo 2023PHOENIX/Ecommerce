@@ -5,6 +5,8 @@
 CREATE DATABASE authdb;
 CREATE DATABASE pctdb;
 CREATE DATABASE inventorydb;
+CREATE DATABASE orderdb;
+
 
 -- Or use the conditional form if you run the container multiple times:
 -- SELECT 'CREATE DATABASE pctdb'
