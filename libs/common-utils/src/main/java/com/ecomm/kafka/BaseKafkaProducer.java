@@ -30,7 +30,7 @@ public class BaseKafkaProducer {
                 // *** ADD THIS CRITICAL LOGGING ***
                 log.atError().log("issue with the {}", ex.getMessage());
             } else {
-                log.atError().log("send success.::");
+                log.atInfo().log("send success.::");
             }
         });
         return future;

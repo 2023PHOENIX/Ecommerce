@@ -2,7 +2,7 @@ package com.ecomm.pct.service.command;
 
 import com.ecomm.events.ProducerCreateEvent;
 import com.ecomm.pct.dto.request.CreationProductRequest;
-import com.ecomm.pct.dto.response.ProductResponse;
+import com.ecomm.pct.dto.response.ProductCreationResponse;
 import com.ecomm.pct.entity.ProductEntity;
 import com.ecomm.pct.enums.Category;
 import com.ecomm.pct.kafka.ProductEventPublisher;
@@ -25,7 +25,7 @@ public class ProductCreationalService {
     private final ProductStrategyFactory factory;
     private final ProductEventPublisher productEventPublisher;
 
-    public Result<ProductResponse> execute(CreationProductRequest request) {
+    public Result<ProductCreationResponse> execute(CreationProductRequest request) {
         log.atInfo().log("inside the create product service");
         return Result.success(request)
                 .bind(this::applyStrategy)
@@ -68,7 +68,7 @@ public class ProductCreationalService {
         }
     }
 
-    private Result<ProductResponse> mapToResponse(ProductEntity productEntity) {
+    private Result<ProductCreationResponse> mapToResponse(ProductEntity productEntity) {
         log.atInfo().log("product entity :: {}", productEntity);
         return Result.success(productMapper.toResponse(productEntity));
     }

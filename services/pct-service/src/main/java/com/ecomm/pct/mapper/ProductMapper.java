@@ -2,7 +2,7 @@ package com.ecomm.pct.mapper;
 
 import com.ecomm.events.ProducerCreateEvent;
 import com.ecomm.pct.dto.request.CreationProductRequest;
-import com.ecomm.pct.dto.response.ProductResponse;
+import com.ecomm.pct.dto.response.ProductCreationResponse;
 import com.ecomm.pct.entity.ProductEntity;
 import com.ecomm.pct.enums.Category;
 import org.springframework.stereotype.Component;
@@ -33,8 +33,8 @@ public class ProductMapper {
      * @param productEntity
      * @return the product response entity
      */
-    public ProductResponse toResponse(ProductEntity productEntity) {
-        ProductResponse productResponse = new ProductResponse();
+    public ProductCreationResponse toResponse(ProductEntity productEntity) {
+        ProductCreationResponse productResponse = new ProductCreationResponse();
         productResponse.setName(productEntity.getName());
         productResponse.setDescription(productEntity.getDescription());
         productResponse.setCategory(productEntity.getCategory().toString());

@@ -6,7 +6,7 @@ public enum Category {
     ELECTRONICS,
     GROCERY,
     FASHION,
-    HOME_APPLIANCES,
+    HOME,
     BOOKS,
     BEAUTY,
     TOYS,
